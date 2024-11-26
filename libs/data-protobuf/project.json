@@ -1,0 +1,33 @@
+{
+  "name": "data-protobuf",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-protobuf/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "dependsOn": [
+        "static-module"
+      ],
+      "options": {
+        "script": "pbts -- -o ../../dist/libs/data-protobuf/index.d.ts ../../dist/libs/data-protobuf/index.js"
+      }
+    },
+    "static-module": {
+      "executor": "nx:run-script",
+      "dependsOn": [
+        "create-build-dir"
+      ],
+      "options": {
+        "script": "pbjs -- -t static-module -w commonjs -o ../../dist/libs/data-protobuf/index.js ./src/main.proto"
+      }
+    },
+    "create-build-dir": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["mkdir -p dist/libs/data-protobuf"]
+      }
+    }
+  }
+}

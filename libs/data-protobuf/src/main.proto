@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+// It is possible to import declarations
+import "google/protobuf/timestamp.proto";
+
+// A User is a message with two primitive fields
+message User {
+  string name = 1;
+  bool active = 2;
+}
+
+message Message {
+  int32 id = 1;
+  string body = 2;
+  // Messages can be nested structures
+  User user = 3;
+  // Reference a foreign type published by Google
+  google.protobuf.Timestamp date = 4;
+}

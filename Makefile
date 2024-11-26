@@ -5,6 +5,10 @@ help: ## show help message
 install:	## install dependencies
 	npm ci
 
+.PHONY: build
+build:	## build dependencies
+	nx build data-protobuf
+
 .PHONY: bench
-bench:   ## run benchmark
-	nx serve
+bench: build  ## run benchmark
+	nx serve json-benchmark

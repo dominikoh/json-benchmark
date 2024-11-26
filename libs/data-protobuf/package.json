@@ -1,0 +1,12 @@
+{
+  "name": "@json-benchmark/data-protobuf",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "private": true,
+  "scripts": {
+    "pbjs": "pbjs",
+    "pbts": "pbts"
+  }
+}

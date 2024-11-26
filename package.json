@@ -6,7 +6,8 @@
   "private": true,
   "dependencies": {
     "axios": "^1.6.0",
-    "protobufjs": "^7.4.0"
+    "protobufjs": "^7.4.0",
+    "@json-benchmark/data-protobuf": "./dist/libs/data-protobuf"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
