@@ -3,17 +3,17 @@ syntax = "proto3";
 // It is possible to import declarations
 import "google/protobuf/timestamp.proto";
 
-// A User is a message with two primitive fields
-message User {
-  string name = 1;
-  bool active = 2;
+message BimProgress {
+  int32 id = 1;
+  string externalId = 2;
+  google.protobuf.Timestamp capturedAt = 3;
+  google.protobuf.Timestamp completedAt = 4;
+  int32 levelId = 5;
+  int32 workflowId = 6;
+  int32 bimid = 7;
 }
 
-message Message {
-  int32 id = 1;
-  string body = 2;
-  // Messages can be nested structures
-  User user = 3;
-  // Reference a foreign type published by Google
-  google.protobuf.Timestamp date = 4;
+message BimProgressRequest {
+  int32 version = 1;
+  repeated BimProgress bim_progresses = 2;
 }

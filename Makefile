@@ -6,9 +6,14 @@ install:	## install dependencies
 	npm ci
 
 .PHONY: build
-build:	## build dependencies
+build:	clean ## build dependencies
 	nx build data-protobuf
+	npm install
 
 .PHONY: bench
 bench: build  ## run benchmark
 	nx serve json-benchmark
+
+.PHONY: clean
+clean:	## clean build
+	rm -rf dist
