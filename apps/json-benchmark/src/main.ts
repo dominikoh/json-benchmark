@@ -83,8 +83,7 @@ const saveFlatbuffer = (count: number) => {
     .add("Flatbuffer", () => flatbufferBuilder.asUint8Array())
     .run();
 
-  // TODO: change to 1000000
-  const count = 100;
+  const count = 1000000;
   await benchmark.createSuite("save file 1M data", { ...options, time: 1 })
     .add("JSON", () => saveJson(count))
     .add("Protobuf", () => saveProtobuf(count))
