@@ -13,6 +13,60 @@ make install
 make bench
 ```
 
+<br>
+
+## Result
+```
+Platform info:
+==============
+Darwin 23.5.0 arm64
+Node.JS: 20.11.1
+V8: 11.3.244.8-node.17
+CPU: Apple M1 Max × 10
+Memory: 64 GB
+```
+
+```mermaid
+xychart-beta
+  title "encoding"
+  x-axis [json, protobuf, flatbuffer]
+  y-axis "ns"
+  bar [2000, 443, 119]
+```
+
+```mermaid
+xychart-beta
+  title "decoding"
+  x-axis [json, protobuf, flatbuffer]
+  y-axis "ns"
+  bar [657, 165, 49]
+```
+
+```mermaid
+xychart-beta
+  title "save to file (1M data)"
+  x-axis [json, protobuf, flatbuffer]
+  y-axis "ms"
+  bar [1772, 1397, 1461]
+```
+
+<br>
+
+|            | encoding | decoding | save to file (1M data) | file size (1M data) | Difficulty      |
+|------------|----------|----------|------------------------|---------------------|-----------------|
+| json       | 2000ns   | 675ns    | 1.7 sec                | 151MB               | Easy            |
+| protobuf   | 443ns    | 165ns    | 1.4 sec                | 26MB                | Medium          |
+| flatbuffer | 119ns    | 49ns     | 1.4 sec                | 211MB               | Hard<sup>*</sub>|
+
+<sup>*</sup> flatbuffer 는 schema 변경하기가 어렵다
+- 새로운 field 는 무조건 제일 아래에 넣어야한다
+- field 가 한번 정해지면 삭제 불가
+- array 를 지원하는건 struct 에서만 가능
+  - 여기에 한번 정의되면 변경 불가
+  - 여기에는 primitive type 밖에 못들어감
+
+<br>
+
 ## Development
 
 To generate a new application, use:
