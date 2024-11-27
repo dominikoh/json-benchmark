@@ -33,7 +33,13 @@ const flatbufferData = flatbufferBuilder.asUint8Array();
 const flatbufferEncodedData = FlatBufferBimProgress.getRootAsBimProgress(new ByteBuffer(flatbufferData));
 
 const benchmark = new Benchmarkify("JSON Benchmark", { chartImage: true }).printHeader();
-const options = { time: 1000 };
+const options = { time: 1000 * 60 };
+
+const fileSize = (path: string) => {
+  const stats = fs.statSync(path);
+  const fileSizeInBytes = stats.size;
+  return (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+};
 
 const saveJson = (count: number) => {
   const result = {
@@ -44,7 +50,9 @@ const saveJson = (count: number) => {
     result.bim_progresses.push(jsonData);
   }
 
-  fs.writeFileSync("tmp/progress.json", JSON.stringify(result));
+  const filepath = "tmp/progress.json";
+  fs.writeFileSync(filepath, JSON.stringify(result));
+  return fileSize(filepath);
 };
 
 const saveProtobuf = (count: number) => {
@@ -58,7 +66,9 @@ const saveProtobuf = (count: number) => {
   });
 
   const buffer = ProtobufBimProgressRequest.encode(result).finish();
-  fs.writeFileSync("tmp/progress.protobuf", buffer);
+  const filepath = "tmp/progress.protobuf";
+  fs.writeFileSync(filepath, buffer);
+  return fileSize(filepath);
 };
 
 const saveFlatbuffer = (count: number) => {
@@ -67,7 +77,9 @@ const saveFlatbuffer = (count: number) => {
     bimProgresses.push(flatbufferData);
   }
 
-  fs.writeFileSync("tmp/progress.flatbuffer", bimProgresses.join("\n"));
+  const filepath = "tmp/progress.flatbuffer";
+  fs.writeFileSync(filepath, bimProgresses.join("\n"));
+  return fileSize(filepath);
 };
 
 (async () => {
@@ -84,9 +96,15 @@ const saveFlatbuffer = (count: number) => {
     .run();
 
   const count = 1000000;
-  await benchmark.createSuite("save file 1M data", { ...options, time: 1 })
-    .add("JSON", () => saveJson(count))
-    .add("Protobuf", () => saveProtobuf(count))
-    .add("Flatbuffer", () => saveFlatbuffer(count))
-    .run();
+  let startTime = Date.now();
+  let fileSize = saveJson(count);
+  console.log(`Save JSON file: ${Date.now() - startTime}ms, ${fileSize}MB`);
+
+  startTime = Date.now();
+  fileSize = saveProtobuf(count);
+  console.log(`Save Protobuf file: ${Date.now() - startTime}ms, ${fileSize}MB`);
+
+  startTime = Date.now();
+  fileSize = saveFlatbuffer(count);
+  console.log(`Save Flatbuffer file: ${Date.now() - startTime}ms, ${fileSize}MB`);
 })();
