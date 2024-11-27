@@ -24,7 +24,7 @@ npx nx g @nx/node:app demo
 To generate a new library, use:
 
 ```sh
-npx nx g @nx/node:lib mylib
+npx nx g @nx/node:lib libs/mylib
 ```
 
 ### Note

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@json-benchmark/data-flatbuffer": ["libs/data-flatbuffer/src/main.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

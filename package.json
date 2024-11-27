@@ -8,6 +8,7 @@
     "@json-benchmark/data-protobuf": "./dist/libs/data-protobuf",
     "axios": "^1.6.0",
     "benchmarkify": "^4.0.0",
+    "flatbuffers": "^24.3.25",
     "protobufjs": "^7.4.0"
   },
   "devDependencies": {

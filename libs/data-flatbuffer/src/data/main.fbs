@@ -1,0 +1,16 @@
+table BimProgress {
+  id: int;
+  externalId: string;
+  capturedAt: string;
+  completedAt: string;
+  levelId: int;
+  workflowId: int;
+  bimId: int;
+}
+
+table BimProgressRequest {
+  version: int;
+  bim_progresses: [BimProgress];
+}
+ 
+root_type BimProgress;
